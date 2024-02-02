@@ -1,0 +1,85 @@
+﻿import random
+
+
+class Soldier:
+    def __init__(self, rank):
+        self.rank = rank
+        self.weapon = None
+        self.ammo = 0
+
+
+    def join_battle(self):
+        print("Joining the fight as a", self.rank)
+
+
+    def choose_weapon(self, weapon):
+        self.weapon = weapon
+        self.ammo = 4
+
+
+    def fire_weapon(self):
+        if self.ammo > 0:
+            print("Firing", self.weapon)
+            self.ammo -= 1
+        else:
+            print("Out of ammo!")
+
+
+    def reload_weapon(self):
+        if self.ammo < 4:
+            print("Reloading", self.weapon)
+            self.ammo = 4
+        else:
+            print("Weapon already fully loaded!")
+
+
+class Game:
+    def __init__(self):
+        self.soviet_soldier = Soldier("Soviet Soldier")
+        self.german_soldier = Soldier("German Soldier")
+        self.npcs = 100
+
+
+    def start_game(self):
+        print("Welcome to the Soviet vs. Nazi Trench Warfare Game!")
+        print("Options:")
+        print("1. Join the fight")
+        print("2. Quit")
+
+
+        choice = input("Enter your choice: ")
+
+
+        if choice == "1":
+            self.soviet_soldier.join_battle()
+            self.german_soldier.join_battle()
+            self.choose_random_weapon()
+            self.start_battle()
+        elif choice == "2":
+            print("Quitting the game...")
+        else:
+            print("Invalid choice. Please try again.")
+
+
+    def choose_random_weapon(self):
+        soviet_weapons = ["Automatic Rifle", "Maxim Machine Gun", "Schwarzlose Machine Gun", "MG 08", "Colt Machine Gun", "Hotchkiss Machine Gun", "Madsen Machine Gun", "Chauchat Machine Gun"]
+        german_weapons = ["Luger M1900 Carbine", "Mauser C96", "Mauser HSc", "Mauser M1914"]
+
+
+        self.soviet_soldier.choose_weapon(random.choice(soviet_weapons))
+        self.german_soldier.choose_weapon(random.choice(german_weapons))
+
+
+    def start_battle(self):
+        print("The battle begins!")
+        while self.npcs > 0:
+            self.soviet_soldier.fire_weapon()
+            self.german_soldier.fire_weapon()
+            self.npcs -= 1
+
+
+        print("Battle over!")
+
+
+game = Game()
+game.start_game()
